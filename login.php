@@ -1,6 +1,6 @@
 <?php
-include('classes/StaticHTML.class.php');
-include('classes/DB.class.php');
+include_once('classes/StaticHTML.class.php');
+include_once('classes/DB.class.php');
 
 $page = new StaticHTML();
 $dbc = new DB();
@@ -15,7 +15,7 @@ if (isset($_POST["nutzer"])) {
         //COOKIE SETZEN
         session_start();
         $secret = md5(mt_rand(1,999999));
-        $stmt = "UPDATE user SET cookie = '$secret' WHERE username = '$nutzer'";
+        $stmt = "UPDATE user SET cookie = '$secret', lastlogin = NOW() WHERE username = '$nutzer'";
         $db->query($stmt);
         $_SESSION['user'] = $secret;
         //WEITERLEITEN
@@ -29,8 +29,8 @@ if (isset($_POST["nutzer"])) {
 print $page->head("Login");
 
 print '<div class="uk-flex uk-flex-center uk-flex-middle" uk-height-viewport="expand: true">
-<div class="uk-flex uk-flex-column uk-flex-middle">
-    <h1 class="uk-heading-large">Irgendein Titel</h1>';
+<div class="uk-flex uk-flex-column uk-flex-middle uk-animation-slide-top">
+    <h1 class="uk-heading-large">21Seaboard</h1>';
  
 if ($error) {
     print '<div class="uk-alert-danger" uk-alert>
